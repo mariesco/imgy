@@ -8,11 +8,11 @@ import {
   removeChangeToImage,
 } from "@/entities/ImagesModel";
 
-type ApplyChangesToImageStore = Pick<ImagesStore, "imageViewed" | 'applyChangesToImage' | 'changesOfHistoryClicked' | 'history' >;
+type ApplyChangesToImageStore = Pick<ImagesStore, "imageViewed" | 'changesOfHistoryClicked' | 'history' >;
 
-const applyChangesToImageUseCase = (store: ApplyChangesToImageStore, changes: ChangesApplieds) => {
+const applyChangesToImageUseCase = (store: ApplyChangesToImageStore) => {
   
-  const applyChangesToImage = (): ImageViewed => {
+  const applyChangesToImage = (changes: Changes): ImageViewed => {
     if(store.changesOfHistoryClicked !== null){
 
       let changesForUpdate = store.changesOfHistoryClicked;

@@ -1,10 +1,10 @@
 import { selectOneImageAsMain } from "@/entities/ImagesModel";
 import { ImagesStore } from "@/entities/ImagesStore";
 
-type SetImageForViewStore = Pick<ImagesStore, "setImageForView" | "images">;
+type SetImageForViewStore = Pick<ImagesStore, "images">;
 
-const SetImageForViewUseCase = (store: SetImageForViewStore, idSelected: number) => {
-  const setImageForView = () => {
+const SetImageForViewUseCase = (store: SetImageForViewStore) => {
+  const setImageForView = (idSelected: number) => {
     return selectOneImageAsMain({
       images: store.images,
       idSelected

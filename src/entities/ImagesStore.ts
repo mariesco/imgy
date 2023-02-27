@@ -14,8 +14,8 @@ interface ImagesStore extends ImagesState {
   //Store with Actions
   loadInitialImages(): Promise<Images>;
   addNewImage(images: Images): Images;
-  setImageForView(images: Images, idSelected: number): void;
-  applyChangesToImage(): ImageViewed;
+  setImageForView(idSelected: number): void;
+  applyChangesToImage(changes: ChangesApplieds): ImageViewed;
 }
 
 export type { ImagesStore };
