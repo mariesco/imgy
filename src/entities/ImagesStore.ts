@@ -1,21 +1,30 @@
-import { ChangesApplieds, History } from "./History";
+import { ChangesApplieds, History, PossibleChanges } from "./History";
 import { Images, ImageViewed } from "./Images";
 
 interface ImagesState {
   // State
   images: Images;
-  imageViewed: ImageViewed;
   history: History;
-  changesOfHistoryClicked: ChangesApplieds | null;
+  imageViewed: ImageViewed;
   isLoadingImages: boolean;
+  possibleChanges: PossibleChanges;
+  changesOfHistoryClicked: ChangesApplieds | null;
 }
 
-interface ImagesStore extends ImagesState {
-  //Store with Actions
-  loadInitialImages(): Promise<Images>;
+interface ImagesActions {
+  //Actions
   addNewImage(images: Images): Images;
   setImageForView(idSelected: number): void;
   applyChangesToImage(changes: ChangesApplieds): ImageViewed;
 }
 
-export type { ImagesStore };
+interface ImagesStore extends ImagesState, ImagesActions {}
+
+type ImagesDispatcher = Record<keyof ImagesActions, () => void>;
+
+interface ImagesStoreDestructured {
+  store: ImagesState;
+  dispatcher: ImagesDispatcher;
+}
+
+export type { ImagesState, ImagesActions, ImagesDispatcher, ImagesStore, ImagesStoreDestructured };

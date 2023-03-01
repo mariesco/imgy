@@ -12,7 +12,7 @@ type ApplyChangesToImageStore = Pick<ImagesStore, "imageViewed" | 'changesOfHist
 
 const applyChangesToImageUseCase = (store: ApplyChangesToImageStore) => {
   
-  const applyChangesToImage = (changes: Changes): ImageViewed => {
+  const applyChangesToImage = (changes: ChangesApplieds): ImageViewed => {
     if(store.changesOfHistoryClicked !== null){
 
       let changesForUpdate = store.changesOfHistoryClicked;
