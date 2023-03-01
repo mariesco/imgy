@@ -8,6 +8,7 @@ import { applyChangesToImageUseCase } from '@/useCases/applyChangesToImage';
 
 const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesStore => {
 
+  //Use cases
   const { addNewImage: addNewImageFn } = AddNewImageUseCase({
     images: store.images
   });
@@ -22,6 +23,7 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
     changesOfHistoryClicked: store.changesOfHistoryClicked,
   })
 
+  //Optimizing cases
   const addNewImage = useCallback((newImages: typeof store.images) => {
     const {
       images
@@ -30,16 +32,34 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
   }, [store.images])
 
   const setImageForViewCb = useCallback((idSelected: number)=> {
-    setImageForViewFn(idSelected);
+    return setImageForViewFn(idSelected);
   }, [store.images])
 
-  const applyChangesToImage = useCallback((changes: ChangesApplieds)=> {
+  const applyChangesToImageCb = useCallback((changes: ChangesApplieds)=> {
     return applyChangesToImageFn(changes);
-  }, [store.images])
+  }, [store])
 
-  //create dispatcher
-  const setImageForView = (idSelected: number) => {
-    dispatcher['setImageForView']({newImg: setImageForViewCb(idSelected) })
+
+
+  //Integration of cases with dispatchers
+  const setImageForView = () => {
+    return {
+      set(idSelected: number) {
+        const result = setImageForViewCb(idSelected);
+        dispatcher['setImageForView']({ result })
+      }
+    }
+  }
+
+  const applyChangesToImage = () => {
+    return {
+      apply(changes: ChangesApplieds) {
+        const imageViewed = applyChangesToImageCb(changes);
+        dispatcher['applyChangesToImage']({ result: {
+          imageViewed
+        } })
+      }
+    }
   }
 
 

@@ -10,6 +10,12 @@ const nextConfig = {
         port: '',
         pathname: '/unsplash/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'assets.imgix.net',
+        port: '',
+        pathname: '/examples/**',
+      },
     ],
   },
 }

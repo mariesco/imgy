@@ -37,23 +37,28 @@ const applyChangesToImageUseCase = (store: ApplyChangesToImageStore) => {
       return imageViewed;
     } else {
       let change = changes[0];
-      const isOneChangeNeverApplied = store.imageViewed.changes.every(ch => ch.name !== change.name)
 
-      if(isOneChangeNeverApplied){
-        const imageViewed = addChangeToImage({
+      let isAChangeForRemove =
+          (typeof change.value === 'string' && change.value === '') || 
+          (typeof change.value === 'number' && change.value === 0);
+
+      if(isAChangeForRemove){
+        const imageViewed = removeChangeToImage({
           imageViewed: store.imageViewed,
           change
         })
 
+        store.history = addChangeToHistory({
+          history: store.history,
+          newChange: imageViewed
+        })
 
         return imageViewed;
       } else {
-        let isAChangeForRemove =
-          (typeof change.value === 'string' && change.value === '') || 
-          (typeof change.value === 'number' && change.value === 0);
+        const isOneChangeNeverApplied = store.imageViewed.changes.every(ch => ch.name !== change.name)
 
-        if(isAChangeForRemove){
-          const imageViewed = removeChangeToImage({
+        if(isOneChangeNeverApplied){
+          const imageViewed = addChangeToImage({
             imageViewed: store.imageViewed,
             change
           })

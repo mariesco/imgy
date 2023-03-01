@@ -1,24 +1,27 @@
+import { PossibleChanges } from "@/entities/History"
+import { ApplyChangesToImageInterface } from "@/entities/ImagesStore"
+import { FC } from "react"
 import { MainConfigItem } from "./MainConfigItem"
 
-export const MainConfig = () => {
+type MainConfigProps = {
+  possibleChanges: PossibleChanges,
+  applyChangesToImage: ApplyChangesToImageInterface;
+}
+
+export const MainConfig: FC<MainConfigProps> = ({ possibleChanges, applyChangesToImage }) => {
   return (
            <div className="grid grid-cols-2 gap-4 mb-4">
              {/*Aca puedo trabajar la config de las propiedades*/}
-               <MainConfigItem value={60} title="Rotation"/>
-               <MainConfigItem value={'wa234eee'} title="Flip"/>
-               <MainConfigItem value={'wa234i'} title="Flip"/>
-               <MainConfigItem value={'wa234'} title="Flip"/>
-               <MainConfigItem value={'wa234b'} title="Flip"/>
-               <MainConfigItem value={60} title="Rotation"/>
-               <MainConfigItem value={60} title="Rotation"/>
-               <MainConfigItem value={10} title="Flip"/>
-               <MainConfigItem value={60} title="Rotation"/>
-               <MainConfigItem value={10} title="Flip"/>
-               <MainConfigItem value={10} title="Flip"/>
-               <MainConfigItem value={60} title="Rotation"/>
-               <MainConfigItem value={10} title="Flip"/>
-               <MainConfigItem value={60} title="Rotation"/>
-               <MainConfigItem value={10} title="Flip"/>
+             {/*Agregar min max, y un title mejor no?*/}
+
+             {possibleChanges.map(ch => {
+               return (
+                <MainConfigItem 
+                  change={ch}
+                  applyChangesToImage={applyChangesToImage}
+                  />
+               )
+             })}
            </div>
   )
 }

@@ -80,23 +80,29 @@ const removeChangeToImage = ({
 
   const {image, changes} = imageViewed;
   const { url }= image;
+  console.log('EL IMAGEVIEWED Q LO RECIBIMO BIEN?', imageViewed)
 
   let finalUrl = url.slice(0, url.indexOf('?'));
   let filterChanges: ChangesApplieds = [];
+  let symbolIsAdded: boolean = finalUrl.charAt(finalUrl.length - 1) === '?'
 
+  //Validate filter of letters and changes
+  //TODO: Fix here.....we are returning finalUrl with out '?' like last character
   for(let i = 0; i < changes.length; i++){
     let ch = changes[i]
     
     if(ch.name !== change.name){
       filterChanges.concat([ch])
-      if(i === 0){
-        finalUrl = finalUrl + `${ch.name}=${ch.value}`
+      if(finalUrl.charAt(finalUrl.length - 1) !== '?' && !symbolIsAdded){
+        finalUrl = finalUrl + `?${ch.name}=${ch.value}`
+        symbolIsAdded = true;
       } else {
         finalUrl = finalUrl + `&${ch.name}=${ch.value}`
       }
     }
   }
 
+  console.log('QUE PASA ACA QUE SE ELIMINA TODO', image, finalUrl, filterChanges)
   return {
       image: {
       ...image,

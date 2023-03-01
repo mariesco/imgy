@@ -1,7 +1,6 @@
 import useImgyStoreImplementation from "@/controllers/useImgyStoreImplementation"
 import { SSRDataProps } from "@/controllers/useImgyStoreProvider"
 import { useImgyViewModel } from "@/controllers/useImgyViewModel"
-import { useEffect } from "react"
 import { History } from "./History"
 import { HistorySidebar } from "./HistorySidebar"
 import { MainConfig } from "./MainConfig"
@@ -24,18 +23,14 @@ export const Main = ({ssrData}: {ssrData: SSRDataProps}) => {
      applyChangesToImage
    } = useImgyViewModel({store, dispatcher});
 
-  useEffect(() => {
-    console.log('VIENEN IMAGENES DEL STORE CARAJOS:', store)
-  }, [store])
-
    return (
       <>
          <HistorySidebar/>
          <div className="p-4 sm:ml-64 h-full">
             <div>
-                <MainHead/>
-                <MainViewedImage/>
-                <MainConfig/>
+                <MainHead images={images} setImageForView={setImageForView}/>
+                <MainViewedImage isLoadingImages={isLoadingImages}  imageViewed={imageViewed}/>
+                <MainConfig possibleChanges={possibleChanges} applyChangesToImage={applyChangesToImage} />
                <div className="sm:hidden">
                    <History/>
                 </div>

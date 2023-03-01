@@ -31,15 +31,16 @@ function useImgyStoreImplementation({ssrData}: {ssrData: SSRDataProps}): ImagesS
    }, [state])
 
    const dispatcher: ImagesDispatcher = {
-      'setImageForView': function() {
-         if(state?.matches('newUrl')){
-               //send({type: 'GENERATED_URL'})
-               //CONTINUAR EL FLUJO DE AGREGAR UNA NUEVA URL Y PASAR A SUCCESS
-               //el assign de lo que venga como prop en esta funcion
-         }
+      'setImageForView': function({result}) {
+         send({type: 'SELECT_IMG', selection: {
+            images: result.images,
+            imageViewed: result.imageViewed
+         }})
       },
-      'applyChangesToImage': function(){
-
+      'applyChangesToImage': function({result}){
+         send({type: 'APPLY_CHANGES_TO_IMG', finalImage: {
+            imageViewed: result.imageViewed
+         }})
       },
       'addNewImage': function(){
 
