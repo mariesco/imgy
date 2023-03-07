@@ -1,12 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Imgy Documentation 
-0.[Index](https://github.com/mariesco/imgy#imgy-documentation)
-1.[Functionality](https://github.com/mariesco/imgy#functionality)
-2.[Stack](https://github.com/mariesco/imgy#stack)
-3.[Run the project](https://github.com/mariesco/imgy#run-the-project)
-4.[Implemented architecture](https://github.com/mariesco/imgy#implemented-architecture)
-5.[Project construction process](https://github.com/mariesco/imgy#project-construction-process)
+- 0.[Index](https://github.com/mariesco/imgy#imgy-documentation)
+- 1.[Functionality](https://github.com/mariesco/imgy#functionality)
+- 2.[Stack](https://github.com/mariesco/imgy#stack)
+- 3.[Run the project](https://github.com/mariesco/imgy#run-the-project)
+- 4.[Implemented architecture](https://github.com/mariesco/imgy#implemented-architecture)
+- 5.[Project construction process](https://github.com/mariesco/imgy#project-construction-process)
 
 ## Functionality 
 
@@ -48,9 +46,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Implemented architecture 
 
 In this project I chose to implement a CLEAN architecture for demonstration purposes only. I think that these types of architectures generate additional effort for small projects of this type, but add a lot of value for large projects. As seen in the following image, the domain of the application and the use cases are developed in pure Typescript. So if you have large teams developing the UI with a technology other than React, or you prefer to use another technology for state management, you can make this change in a clean way.
+
 ![Implemented arch](https://upcdn.io/kW15b6i/raw/uploads/2023/03/07/Captura%20de%20pantalla%202023-03-06%20a%20la(s)%2020-2htD.41.17.png)
 
 To start analyzing this project, I recommend starting from the entry point. Since this project is created with next, the route management is done from [`/pages`]...so if you go to [`/pages/index.tsx`] , you can see that the main view is imported from [`/views/Imgy.tsx `].... As can be seen in the following image, in this view I render a [`Main.tsx`] component where you can see how the union between the UI, the store controller, and the ViewModel entry point controller is made to the UI (To communicate with the useCases an MVVM pattern was followed).
+
 ![View of components](https://upcdn.io/kW15b6i/raw/uploads/2023/03/07/Captura%20de%20pantalla%202023-03-06%20a%20la(s)%2020-3zCH.52.49.png)
 
 
