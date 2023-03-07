@@ -21,14 +21,14 @@
 
 ## Run the project 
 
-First, run the development server:
+First, install all the dependencies and run the development server:
 
 ```bash
-npm run dev
+npm i && npm run dev
 # or
-yarn dev
+yarn install && yarn dev
 # or
-pnpm dev
+pnpm i && pnpm dev
 ```
 
 Or you can run the application inside a container:
@@ -63,6 +63,7 @@ You can see the way this project was built from the commit history, however I wa
 - I didn't get to properly develop the functionality of adding data to history. As you can see, it is not tied to a use case properly.
 - Once again, due to time constraints, I was unable to correctly develop the functionality of adding an image. As you can see, (in addition to not being correctly linked to the use case), the UX could be improved with some notification that it was added correctly and putting it as the main image... For reasons of time, what I did as a side effect when adding an image is to 'restart' the Init function that checks what images are available to that user.
 - In the history, I would have also made improvements at the UX level. The hover effect on each story would work better, seeing the detail in a tooltip and not over generating a kind of 'accordion' on the same component. It would also work on accessibility improvements for mobile.
+- There are variables such as the image upload key that I normally manage from an .ENV file, but in order not to generate complications when downloading and testing the project, I decided to leave them as constants. I am aware that this would affect the security of the system in real projects.
 - Improvements in the tests: For this type of flow I like to develop the tests on the state machines, but due to time issues again I decided to opt for only developing unit tests.
 
 Thank you for reading the documentation and reviewing the project!
