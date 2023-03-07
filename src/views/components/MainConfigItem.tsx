@@ -26,7 +26,7 @@ export const MainConfigItem: FC<MainConfigItemProps> = ({ change, applyChangesTo
                   value={val} 
                   min={change.min}
                   max={change.max}
-                  onClick={e => applyChangesToImage().apply([{name: change.name, value: parseFloat(e.target.value)} as Change])} 
+                  onClick={e => applyChangesToImage().apply([{name: change.name, value: parseFloat((e.target as HTMLInputElement).value)} as Change])} 
                   onChange={e => setVal(parseFloat(e.target.value))} 
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"/>
             </>

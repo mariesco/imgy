@@ -34,7 +34,7 @@ function useImgyStoreImplementation({ssrData}: {ssrData: SSRDataProps}): ImagesS
 
   const applyChangesToImageCb = useCallback((changes: ChangesApplieds)=> {
     return applyChangesToImageFn(changes);
-  }, [state])
+  }, [state, applyChangesToImageFn])
 
    useEffect(function() {
       if(state?.matches("init") && ssrData){
@@ -54,11 +54,12 @@ function useImgyStoreImplementation({ssrData}: {ssrData: SSRDataProps}): ImagesS
              }
           })
       }
-   }, [state])
+   }, [state, send, applyChangesToImageCb, ssrData])
 
    const dispatcher: ImagesDispatcher = {
       'setImageForView': function({result}) {
          send({type: 'SELECT_IMG', selection: {
+            //@ts-ignore
             images: result.images,
             imageViewed: result.imageViewed
          }})
@@ -70,6 +71,7 @@ function useImgyStoreImplementation({ssrData}: {ssrData: SSRDataProps}): ImagesS
       },
       'applyHistoryChangesToImage': function({result}){
          send({type: 'APPLY_HISTORY_CHANGES_TO_IMG', historyChanges: {
+            //@ts-ignore
             changesOfHistoryClicked: result.changesOfHistoryClicked
          }})
       },

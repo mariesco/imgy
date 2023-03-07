@@ -29,15 +29,15 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
       images
     } = addNewImageFn(newImages);
     return images;
-  }, [store.images])
+  }, [store.images, addNewImageFn])
 
   const setImageForViewCb = useCallback((idSelected: number)=> {
     return setImageForViewFn(idSelected);
-  }, [store.images])
+  }, [store.images, setImageForViewFn])
 
   const applyChangesToImageCb = useCallback((changes: ChangesApplieds)=> {
     return applyChangesToImageFn(changes);
-  }, [store])
+  }, [store, applyChangesToImageFn])
 
 
 
@@ -66,6 +66,7 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
     return {
       apply(changes: ChangesApplieds) {
         dispatcher['applyHistoryChangesToImage']({ result: {
+          //@ts-ignore
           changesOfHistoryClicked: changes,
         } })
 
@@ -74,6 +75,7 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
   }
 
   const addNewImages = () => {
+    //@ts-ignore
     dispatcher['addNewImages'](null)
   }
 

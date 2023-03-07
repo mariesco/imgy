@@ -24,11 +24,11 @@ export const MainHead: FC<MainHeadProps> = ({images, addNewImages, setImageForVi
               {images.map((img) => {
                 if(img.selected){
                   return (
-                    <option value={img.id} selected>{img.name}</option>
+                    <option key={img.id} value={img.id} selected>{img.name}</option>
                   )
                 }
                 return (
-                  <option value={img.id}>{img.name}</option>
+                  <option key={img.id} value={img.id}>{img.name}</option>
                 )
               })}
             </select>

@@ -20,9 +20,10 @@ export const History: FC<HistoryProps> = ({ history, applyHistoryChangesToImage 
                 History 
               </p>
              <ul className="space-y-2">
-                {history?.map((historyItem: HistoryItemType) => {
+                {history?.map((historyItem: HistoryItemType, i) => {
                    return (
                      <HistoryItem 
+                        key={i}
                         value={historyItem}
                         applyHistoryChangesToImage={applyHistoryChangesToImage}
                         />

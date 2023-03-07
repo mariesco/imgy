@@ -14,9 +14,10 @@ export const MainConfig: FC<MainConfigProps> = ({ possibleChanges, applyChangesT
              {/*Aca puedo trabajar la config de las propiedades*/}
              {/*Agregar min max, y un title mejor no?*/}
 
-             {possibleChanges.map(ch => {
+             {possibleChanges.map((ch, i) => {
                return (
                 <MainConfigItem 
+                  key={i}
                   change={ch}
                   applyChangesToImage={applyChangesToImage}
                   />
