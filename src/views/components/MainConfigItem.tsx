@@ -1,15 +1,26 @@
-import { Change, ChangeTypeNum, PossibleChange } from '@/entities/History';
+import { FC,  useEffect,  useState } from 'react';
+
+import { Change, ChangesApplieds, ChangeTypeNum, PossibleChange } from '@/entities/History';
 import { ApplyChangesToImageInterface } from '@/entities/ImagesStore';
-import { FC,  useState } from 'react';
 
 type MainConfigItemProps = {
   change: PossibleChange;
+  changesApplieds: ChangesApplieds;
   applyChangesToImage: ApplyChangesToImageInterface;
 }
 
 
-export const MainConfigItem: FC<MainConfigItemProps> = ({ change, applyChangesToImage }) => {
+export const MainConfigItem: FC<MainConfigItemProps> = ({ change, changesApplieds, applyChangesToImage }) => {
    const [val, setVal] = useState(change.value)
+
+   useEffect(() => {
+      let exist = changesApplieds.filter((ch) => ch.name === change.name)
+      if(exist[0]){
+         setVal(exist[0].value)
+      } else {
+         setVal(change.value)
+      }
+   }, [changesApplieds])
 
    function isTypeNum(change: Change): change is ChangeTypeNum {
      return (change as ChangeTypeNum).min !== undefined && (change as ChangeTypeNum).max !== undefined && (change as ChangeTypeNum).value !== undefined;
@@ -36,6 +47,7 @@ export const MainConfigItem: FC<MainConfigItemProps> = ({ change, applyChangesTo
                <select 
                   id="stringed-possible-values" 
                   className="mr-4 cursor-pointer font-semibold border border-gray-800 text-sm rounded-lg block w-full p-2.5 bg-gray-800 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  value={val}
                   onChange={e => applyChangesToImage().apply([{name: change.name, value: e.target.value} as Change])} 
                >
                   {change.possibleValues.map((possibleValue, i) => {

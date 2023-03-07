@@ -41,6 +41,7 @@ export const Main = ({ssrData}: {ssrData: SSRDataProps}) => {
                   imageViewed={imageViewed}
                   />
                 <MainConfig 
+                  changesApplieds={imageViewed.changes}
                   possibleChanges={possibleChanges}
                   applyChangesToImage={applyChangesToImage} 
                   />

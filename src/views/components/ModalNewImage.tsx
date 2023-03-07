@@ -9,7 +9,7 @@ const inter = Inter({subsets: ['latin']})
 const uploader = Uploader({ apiKey: "public_kW15b6i9e8CiaLmuQBRsj1Cv2Rvq"});
 
 type ModalNewImageProps = {
-    addNewImages:()=> void;
+    addNewImages:() => void;
 }
 
 export const ModalNewImage: FC<ModalNewImageProps> = ({addNewImages}) => {
