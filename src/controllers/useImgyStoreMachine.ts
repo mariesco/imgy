@@ -1,7 +1,7 @@
 import { assign, createMachine } from 'xstate';
 
-import { Images, ImageViewed } from '@/entities/Images';
-import { ImagesState, ResultOfApplyChangesToImageEvent, ResultOfSetImageForViewEvent } from '@/entities/ImagesStore';
+import { ImageViewed } from '@/entities/Images';
+import { ImagesState, ResultOfApplyChangesToImageEvent,ResultOfApplyHistoryChangesToImageEvent , ResultOfSetImageForViewEvent } from '@/entities/ImagesStore';
 
 import { SSRDataProps } from './useImgyStoreProvider';
 
@@ -14,11 +14,13 @@ type ImgyEvent = {
    type: 'GENERATED_URL';
    imageViewed: ImageViewed;
 } | { 
+   type: 'ADD_IMAGES';
+} | { 
    type: 'APPLY_CHANGES_TO_IMG';
    finalImage: ResultOfApplyChangesToImageEvent;
 } | { 
-   type: 'NEW_IMG';
-   newImages: Images;
+   type: 'APPLY_HISTORY_CHANGES_TO_IMG';
+   historyChanges: ResultOfApplyHistoryChangesToImageEvent;
 } | { 
    type: 'SELECT_IMG';
    selection: ResultOfSetImageForViewEvent;
@@ -98,9 +100,16 @@ export const ImgyStoreMachine = createMachine<ImgyContext, ImgyEvent, ImgyTypest
                actions: 'loadNewUrlForImageViewed',
                target: 'success'
             },
+            APPLY_HISTORY_CHANGES_TO_IMG: {
+               actions: 'applyHistoryChangesToImageViewed',
+               target: 'success'
+            },
             APPLY_CHANGES_TO_IMG: {
                actions: 'applyChangesToImageViewed',
                target: 'success'
+            },
+            ADD_IMAGES: {
+               target: 'init'
             }
          }
    },
@@ -109,7 +118,7 @@ export const ImgyStoreMachine = createMachine<ImgyContext, ImgyEvent, ImgyTypest
   }
 },{
       actions: {
-         loadInitialData:assign((context, event) => {
+         loadInitialData:assign((_, event) => {
          if(event.type !== 'INIT_DATA_READY') return {}
          const {images, possibleChanges } = event.ssrData;
          return {
@@ -126,7 +135,7 @@ export const ImgyStoreMachine = createMachine<ImgyContext, ImgyEvent, ImgyTypest
                possibleChanges,
          }
       }),
-         loadNewUrlForImageViewed:assign((context, event) => {
+         loadNewUrlForImageViewed:assign((_, event) => {
          if(event.type !== 'SELECT_IMG') return {}
          const {images, imageViewed} = event.selection;
          return {
@@ -140,10 +149,20 @@ export const ImgyStoreMachine = createMachine<ImgyContext, ImgyEvent, ImgyTypest
          const { imageViewed } = event.finalImage;
          return {
                imageViewed,
+               changesOfHistoryClicked: null,
+               history: [imageViewed, ...context.history],
                isLoadingImages: true 
          }
       }),
-         isNotLoading:assign((context, event) => {
+         applyHistoryChangesToImageViewed:assign((context, event) => {
+         if(event.type !== 'APPLY_HISTORY_CHANGES_TO_IMG') return {}
+         const { changesOfHistoryClicked } = event.historyChanges;
+         return {
+               changesOfHistoryClicked,
+               isLoadingImages: true 
+         }
+      }),
+         isNotLoading:assign((__, _) => {
          return {
                isLoadingImages: false
          }

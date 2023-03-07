@@ -13,26 +13,42 @@ export const Main = ({ssrData}: {ssrData: SSRDataProps}) => {
 
    const {
      images,
-     imageViewed,
-     isLoadingImages,
      history,
-     changesOfHistoryClicked,
+     imageViewed,
+     addNewImages,
+     isLoadingImages,
      possibleChanges,
-     addNewImage,
      setImageForView,
-     applyChangesToImage
+     applyChangesToImage,
+     applyHistoryChangesToImage
    } = useImgyViewModel({store, dispatcher});
 
    return (
       <>
-         <HistorySidebar/>
+         <HistorySidebar 
+            history={history}
+            applyHistoryChangesToImage={applyHistoryChangesToImage} 
+            />
          <div className="p-4 sm:ml-64 h-full">
             <div>
-                <MainHead images={images} setImageForView={setImageForView}/>
-                <MainViewedImage isLoadingImages={isLoadingImages}  imageViewed={imageViewed}/>
-                <MainConfig possibleChanges={possibleChanges} applyChangesToImage={applyChangesToImage} />
+                <MainHead 
+                  images={images} 
+                  addNewImages={addNewImages}
+                  setImageForView={setImageForView}
+                  />
+                <MainViewedImage 
+                  isLoadingImages={isLoadingImages}  
+                  imageViewed={imageViewed}
+                  />
+                <MainConfig 
+                  possibleChanges={possibleChanges}
+                  applyChangesToImage={applyChangesToImage} 
+                  />
                <div className="sm:hidden">
-                   <History/>
+                   <History 
+                      history={history}
+                      applyHistoryChangesToImage={applyHistoryChangesToImage} 
+                      />
                 </div>
             </div>
          </div>

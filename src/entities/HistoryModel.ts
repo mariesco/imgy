@@ -1,15 +1,5 @@
-import type { ChangesApplieds, History } from './History';
+import type { ChangesApplieds } from './History';
 import { ImageViewed } from './Images';
-
-const addChangeToHistory = ({
-  history,
-  newChange
-}: {
-    history: History,
-    newChange: ImageViewed
-  }): History => {
-  return history.concat([newChange]);
-}
 
 const applyHistoryChangesToImageViewed = ({
   historySelected,
@@ -24,9 +14,9 @@ const applyHistoryChangesToImageViewed = ({
 
   for(let i = 0; i < historySelected.changes.length; i++){
     let ch = historySelected.changes[i]
-      newChangesForApply.concat([ch])
+      newChangesForApply.push(ch)
       if(i === 0){
-        finalUrl = finalUrl + `${ch.name}=${ch.value}`
+        finalUrl = finalUrl + `?${ch.name}=${ch.value}`
       } else {
         finalUrl = finalUrl + `&${ch.name}=${ch.value}`
       }
@@ -45,6 +35,5 @@ const applyHistoryChangesToImageViewed = ({
 }
 
 export {
-  addChangeToHistory,
   applyHistoryChangesToImageViewed
 }

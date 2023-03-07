@@ -5,12 +5,14 @@ import { FC } from 'react'
 import { ModalNewImage } from './ModalNewImage'
 const inter = Inter({subsets: ['latin']})
 
+//TODO: Type correctly addNewImages
 type MainHeadProps = {
   images: Images;
+  addNewImages: any;
   setImageForView: SetImageForViewInterface;
 }
 
-export const MainHead: FC<MainHeadProps> = ({images, setImageForView}) => {
+export const MainHead: FC<MainHeadProps> = ({images, addNewImages, setImageForView}) => {
 
   return (
     <div className="grid grid-cols-2 gap-4 mb-4">
@@ -30,7 +32,7 @@ export const MainHead: FC<MainHeadProps> = ({images, setImageForView}) => {
                 )
               })}
             </select>
-            <ModalNewImage />
+            <ModalNewImage addNewImages={addNewImages}/>
           </div>
     </div>
   )

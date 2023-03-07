@@ -24,7 +24,7 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
   })
 
   //Optimizing cases
-  const addNewImage = useCallback((newImages: typeof store.images) => {
+  const addNewImageCb = useCallback((newImages: typeof store.images) => {
     const {
       images
     } = addNewImageFn(newImages);
@@ -62,6 +62,21 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
     }
   }
 
+  const applyHistoryChangesToImage = () => {
+    return {
+      apply(changes: ChangesApplieds) {
+        dispatcher['applyHistoryChangesToImage']({ result: {
+          changesOfHistoryClicked: changes,
+        } })
+
+      }
+    }
+  }
+
+  const addNewImages = () => {
+    dispatcher['addNewImages'](null)
+  }
+
 
   return {
     images: store.images,
@@ -70,9 +85,10 @@ const useImgyViewModel = ({store, dispatcher}: ImagesStoreDestructured): ImagesS
     history: store.history,
     changesOfHistoryClicked: store.changesOfHistoryClicked,
     possibleChanges: store.possibleChanges,
-    addNewImage,
+    addNewImages,
     setImageForView,
-    applyChangesToImage
+    applyChangesToImage,
+    applyHistoryChangesToImage
   }
 }
 

@@ -22,6 +22,17 @@ interface ResultOfApplyChangesToImageEvent {
     imageViewed: ImageViewed;
 }
 
+interface ApplyHistoryChangesToImageInterface {
+  (): {
+    apply: (changes: ChangesApplieds) => void
+  }
+}
+
+
+interface ResultOfApplyHistoryChangesToImageEvent{
+    changesOfHistoryClicked: ChangesApplieds;
+}
+
 interface ImagesState {
   // State
   images: Images;
@@ -34,15 +45,18 @@ interface ImagesState {
 
 interface ImagesActions {
   //Actions
-  addNewImage(images: Images): Images;
+  // addNewImages(images: Images): Images; 
+  // TODO: Integrate dispatcher with this useCase correctly
+  addNewImages(): void;
   setImageForView: SetImageForViewInterface;
   applyChangesToImage: ApplyChangesToImageInterface;
+  applyHistoryChangesToImage: ApplyHistoryChangesToImageInterface;
 }
 
 interface ImagesStore extends ImagesState, ImagesActions {}
 
 
-type ResultOfDispatchers = ResultOfSetImageForViewEvent | ResultOfApplyChangesToImageEvent;
+type ResultOfDispatchers = ResultOfSetImageForViewEvent | ResultOfApplyChangesToImageEvent | ResultOfApplyChangesToImageEvent;
 
 type ImagesDispatcher = Record<keyof ImagesActions, ({
   result
@@ -68,5 +82,8 @@ export type {
   ResultOfSetImageForViewEvent,
 
   ApplyChangesToImageInterface,
-  ResultOfApplyChangesToImageEvent
+  ResultOfApplyChangesToImageEvent,
+
+  ApplyHistoryChangesToImageInterface,
+  ResultOfApplyHistoryChangesToImageEvent
 };

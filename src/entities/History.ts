@@ -20,6 +20,8 @@ export type ChangesApplieds = Change[];
 
 export type History = ImageViewed[];
 
+export type HistoryItem = History extends (infer U)[] ? U : never;
+
 export type ParseChangesToObject<Query extends string> =
   Query extends `${infer Key}=${infer Value}&${infer Rest}` ?
     { [K in Key]: Value } & ParseChangesToObject<Rest> :

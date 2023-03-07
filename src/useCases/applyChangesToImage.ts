@@ -1,7 +1,7 @@
 import { ChangesApplieds } from "@/entities/History";
 import { ImageViewed } from "@/entities/Images";
 import { ImagesStore } from "@/entities/ImagesStore";
-import { addChangeToHistory, applyHistoryChangesToImageViewed } from "@/entities/HistoryModel";
+import { applyHistoryChangesToImageViewed } from "@/entities/HistoryModel";
 import { 
   UpdateOneChange,
   addChangeToImage,
@@ -17,8 +17,6 @@ const applyChangesToImageUseCase = (store: ApplyChangesToImageStore) => {
 
       let changesForUpdate = store.changesOfHistoryClicked;
 
-      store.changesOfHistoryClicked = null;
-
       const imageViewed = applyHistoryChangesToImageViewed({
         historySelected: {
           image: {
@@ -27,11 +25,6 @@ const applyChangesToImageUseCase = (store: ApplyChangesToImageStore) => {
           changes: changesForUpdate
         },
         imageViewed: store.imageViewed,
-      })
-
-      store.history = addChangeToHistory({
-        history: store.history,
-        newChange: imageViewed
       })
 
       return imageViewed;
@@ -48,11 +41,6 @@ const applyChangesToImageUseCase = (store: ApplyChangesToImageStore) => {
           change
         })
 
-        store.history = addChangeToHistory({
-          history: store.history,
-          newChange: imageViewed
-        })
-
         return imageViewed;
       } else {
         const isOneChangeNeverApplied = store.imageViewed.changes.every(ch => ch.name !== change.name)
@@ -63,23 +51,12 @@ const applyChangesToImageUseCase = (store: ApplyChangesToImageStore) => {
             change
           })
 
-          store.history = addChangeToHistory({
-            history: store.history,
-            newChange: imageViewed
-          })
-
           return imageViewed; 
         } else {
           const imageViewed = UpdateOneChange({
             imageViewed: store.imageViewed,
             change
           })
-
-          store.history = addChangeToHistory({
-            history: store.history,
-            newChange: imageViewed
-          })
-
           return imageViewed;
         }
       }
