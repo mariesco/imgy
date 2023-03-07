@@ -67,11 +67,11 @@ export const MainViewedImage: FC<MainViewedImageProps>  = ({imageViewed, isLoadi
             src={data}
             width={width}
             height={height}
-            alt="A lovely bath"
+            alt={data}
             className="z-1"
           />   
       </div>
-      <div className="flex items-center justify-center h-12 mb-4 rounded bg-gray-800">
+      <div className="pl-12 lg:flex items-center justify-center lg:h-12 mb-4 rounded bg-gray-800">
         <p className={`${inter.className} text-gray-500 font-semibold pr-4`}>
           Generated URL: 
         </p> 

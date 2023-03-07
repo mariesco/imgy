@@ -11,9 +11,6 @@ type MainConfigProps = {
 export const MainConfig: FC<MainConfigProps> = ({ possibleChanges, applyChangesToImage }) => {
   return (
            <div className="grid grid-cols-2 gap-4 mb-4">
-             {/*Aca puedo trabajar la config de las propiedades*/}
-             {/*Agregar min max, y un title mejor no?*/}
-
              {possibleChanges.map((ch, i) => {
                return (
                 <MainConfigItem 

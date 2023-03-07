@@ -1,9 +1,9 @@
-import { Change, ChangeTypeNum } from '@/entities/History';
+import { Change, ChangeTypeNum, PossibleChange } from '@/entities/History';
 import { ApplyChangesToImageInterface } from '@/entities/ImagesStore';
 import { FC,  useState } from 'react';
 
 type MainConfigItemProps = {
-  change: Change;
+  change: PossibleChange;
   applyChangesToImage: ApplyChangesToImageInterface;
 }
 
@@ -19,7 +19,7 @@ export const MainConfigItem: FC<MainConfigItemProps> = ({ change, applyChangesTo
       <div className="pt-4">
          {isTypeNum(change) ?
             <>
-               <label htmlFor="default-range" className="block mb-4 text-md font-medium text-white">{change.name}</label>
+               <label htmlFor="default-range" className="block mb-4 text-md font-medium text-white">{change.title}</label>
                <input 
                   id="default-range" 
                   type="range" 
@@ -32,13 +32,23 @@ export const MainConfigItem: FC<MainConfigItemProps> = ({ change, applyChangesTo
             </>
          :
             <>
-               <label htmlFor="options-props" className="block mb-2 text-md font-medium text-white">{change.name}</label>
-               <select id="options-props" className="mr-4 cursor-pointer font-semibold border border-gray-800 text-sm rounded-lg block w-full p-2.5 bg-gray-800 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                 <option defaultValue={'s'}>Choose a image</option>
-                 <option value="US">United States</option>
-                 <option value="CA">Canada</option>
-                 <option value="FR">France</option>
-                 <option value="DE">Germany</option>
+               <label htmlFor="options-props" className="block mb-2 text-md font-medium text-white">{change.title}</label>
+               <select 
+                  id="stringed-possible-values" 
+                  className="mr-4 cursor-pointer font-semibold border border-gray-800 text-sm rounded-lg block w-full p-2.5 bg-gray-800 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  onChange={e => applyChangesToImage().apply([{name: change.name, value: e.target.value} as Change])} 
+               >
+                  {change.possibleValues.map((possibleValue, i) => {
+                     if(possibleValue === ''){
+                        return (
+                           <option key={i} value={''}>None</option>
+                        )
+                     } else {
+                        return (
+                           <option key={i} value={possibleValue}>{possibleValue}</option>
+                        )
+                     }
+                  })}
                </select>
             </>
          }

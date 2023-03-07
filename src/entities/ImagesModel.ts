@@ -99,6 +99,10 @@ const removeChangeToImage = ({
     }
   }
 
+  if(filterChanges.length === 0){
+    finalUrl = finalUrl + '?'
+  }
+
   return {
       image: {
       ...image,

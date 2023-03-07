@@ -5,10 +5,9 @@ import { FC } from 'react'
 import { ModalNewImage } from './ModalNewImage'
 const inter = Inter({subsets: ['latin']})
 
-//TODO: Type correctly addNewImages
 type MainHeadProps = {
   images: Images;
-  addNewImages: any;
+  addNewImages:() => void;
   setImageForView: SetImageForViewInterface;
 }
 

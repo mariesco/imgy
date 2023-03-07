@@ -15,8 +15,9 @@ export type ChangeTypeString = {
 
 export type Change = ChangeTypeNum | ChangeTypeString;
 
-export type PossibleChanges = Change[];
 export type ChangesApplieds = Change[];
+export type PossibleChange = Change & {title: string};
+export type PossibleChanges = PossibleChange[];
 
 export type History = ImageViewed[];
 
