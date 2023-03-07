@@ -8,7 +8,7 @@
 
 ## Functionality 
 
-[Imgy](https://google.com/)CAMBIAR URL POR LA REAL... is an application that allows users to quickly perform image transformations. It has a list of images to test the transformations that one wishes, however there is the possibility of uploading images. All these transformations are being recorded, which allows us to have a history of them and apply transformations from this same history.
+[Imgy](https://imgy-a1ys.vercel.app/) is an application that allows users to quickly perform image transformations. It has a list of images to test the transformations that one wishes, however there is the possibility of uploading images. All these transformations are being recorded, which allows us to have a history of them and apply transformations from this same history.
 
 ## Stack 
 
